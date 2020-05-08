@@ -18,12 +18,9 @@ func readJsonAndGen(jsonFile, outType, outFile string) {
 	var (
 		json string
 	)
-	buf := make([]byte, 1024)
-	for {
-		len, _ := file.Read(buf)
-		if len == 0 {
-			break
-		}
+	buf := make([]byte, 1024*1024)
+	len, _ := file.Read(buf)
+	if len != 0 {
 		json = `` + string(buf[:len]) + ``
 		ck := New(json, jsonFile, outType, outFile)
 		ck.json2Struct()
